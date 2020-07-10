@@ -17,7 +17,7 @@ Serie
 	VSQRT.F32 S6, S0      ;S6 = Raíz cuadrada de S0 --> S6 = Raíz de n	
 	
 	VMUL.F32  S7, S0, S0  ;S7 = S0 x S0
-	VMUL.F32  S7, S0      ;S7 = S7 x S0 --> S7 = n^3 --> Se obtiene la potencia de n^3	
+	VMUL.F32  S7, S0      ;S7 = S7 x S0 --> S7 = n^3 --> Se obtiene la potencia de n^3.	
 	
 	VADD.F32  S8, S5, S6  ;S8 = S5 + S6 --> 2n + Raíz n
 	VADD.F32  S9, S7, S6  ;S9 = S7 + S6 --> n^3 + Raíz n
