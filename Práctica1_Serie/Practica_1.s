@@ -22,7 +22,7 @@ Serie
 	VADD.F32  S8, S5, S6  ;S8 = S5 + S6 --> 2n + Raíz n
 	VADD.F32  S9, S7, S6  ;S9 = S7 + S6 --> n^3 + Raíz n
 	VDIV.F32  S10, S8, S9 ;S10 = S8/S9 --> (2n + Raíz n)/(n^3 + Raíz n)	
-	VADD.F32  S11, S10  ;S11 = S11 + S10 ---> RESULTADO. SE HACE LA SUMATORIA DE LA SERIE
+	VADD.F32  S11, S10  ;S11 = S11 + S10 ---> RESULTADO. SE HACE LA SUMATORIA DE LA SERIE.
 	
 	VADD.F32  S0, S0, S3  ; S0 = S0 + 1 --> n = n + 1 --> n++
 	VCMP.F32  S0, S2  ; Se compara S0 con S2 --> Comparar n con (N+1)
