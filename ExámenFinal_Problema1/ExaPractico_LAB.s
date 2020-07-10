@@ -1,0 +1,31 @@
+;SUMATORIA 1/n^2
+	
+	THUMB
+	AREA CLASE1, ALIGN=4
+mem SPACE 4		
+	AREA |text.|, CODE, READONLY, ALIGN=2
+	EXPORT Start
+		
+Start
+	VLDR.F32 S0, =1  ;z
+	VLDR.F32 S1, =100 ;N
+	
+Sumatoria
+	VMOV.F32 S2, S0 ;S2 = S0
+	VMUL.F32 S2, S2, S2 ;S2 = S2*S2 = n^2
+	VMOV.F32 S3, #1 ;S3 = 1 Cte
+	VDIV.F32 S2, S3, S2 ;S2 = S3/S2 = 1/n^2
+	VADD.F32 S4, S4, S2 ;S4 = S4 + S2  ---> RESULTADO: ACUMULADO DE LA SUMATORIA
+	VMOV.F32 S2, #1
+	VADD.F32 S0, S0, S2 ;S0 = S0 + S2 = z++
+	VADD.F32 S5, S1, S2 ;S5 = S5 + 1 = N + 1
+	VCMP.F32 S0, S5 ;¿S0 igual a S1?
+	VLDR.F32 S5, =0
+	VMRS APSR_nzcv, FPSCR
+	BNE Sumatoria
+	B Fin
+	
+Fin B Fin
+
+	ALIGN
+	END

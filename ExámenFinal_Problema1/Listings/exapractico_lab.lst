@@ -1,0 +1,116 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;SERIE: SUMATORIA 1/n^2
+    2 00000000         
+    3 00000000                 THUMB
+    4 00000000                 AREA             CLASE1, ALIGN=4
+    5 00000000 00 00 00 
+              00       mem     SPACE            4
+    6 00000004                 AREA             |text.|, CODE, READONLY, ALIGN=
+2
+    7 00000000                 EXPORT           Start
+    8 00000000         
+    9 00000000         Start
+   10 00000000 EEB7 0A00       VLDR.F32         S0, =1      ;z
+   11 00000004 EDDF 0A0D       VLDR.F32         S1, =100    ;N
+   12 00000008         
+   13 00000008         Sumatoria
+   14 00000008 EEB0 1A40       VMOV.F32         S2, S0      ;S2 = S0
+   15 0000000C EE21 1A01       VMUL.F32         S2, S2, S2  ;S2 = S2*S2 = n^2
+   16 00000010 EEF7 1A00       VMOV.F32         S3, #1      ;S3 = 1 Cte
+   17 00000014 EE81 1A81       VDIV.F32         S2, S3, S2  ;S2 = S3/S2 = 1/n^2
+                                                            
+   18 00000018 EE32 2A01       VADD.F32         S4, S4, S2  ;S4 = S4 + S2  --->
+                                                             RESULTADO: ACUMULA
+                                                            DO DE LA SUMATORIA
+   19 0000001C EEB7 1A00       VMOV.F32         S2, #1
+   20 00000020 EE30 0A01       VADD.F32         S0, S0, S2  ;S0 = S0 + S2 = z++
+                                                            
+   21 00000024 EE70 2A81       VADD.F32         S5, S1, S2  ;S5 = S5 + 1 = N + 
+                                                            1
+   22 00000028 EEB4 0A62       VCMP.F32         S0, S5      ;¿S0 igual a S1?
+   23 0000002C EDDF 2A04       VLDR.F32         S5, =0
+   24 00000030 EEF1 FA10       VMRS             APSR_nzcv, FPSCR
+   25 00000034 D1E8            BNE              Sumatoria
+   26 00000036 E7FF            B                Fin
+   27 00000038         
+   28 00000038 E7FE    Fin     B                Fin
+   29 0000003A         
+   30 0000003A 00 00           ALIGN
+   31 0000003C                 END
+              42C80000 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\objects\exapractico_lab.d -o.\objects\exapractico_lab.o -I.\R
+TE\_Target_1 -IC:\Users\Edesalher\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\D
+evice\Include\TM4C123 -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__EVAL SETA 1
+" --predefine="__UVISION_VERSION SETA 528" --predefine="TM4C123GH6PM SETA 1" --
+list=.\listings\exapractico_lab.lst ExaPractico_LAB.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+CLASE1 00000000
+
+Symbol: CLASE1
+   Definitions
+      At line 4 in file ExaPractico_LAB.s
+   Uses
+      None
+Comment: CLASE1 unused
+mem 00000000
+
+Symbol: mem
+   Definitions
+      At line 5 in file ExaPractico_LAB.s
+   Uses
+      None
+Comment: mem unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Fin 00000038
+
+Symbol: Fin
+   Definitions
+      At line 28 in file ExaPractico_LAB.s
+   Uses
+      At line 26 in file ExaPractico_LAB.s
+      At line 28 in file ExaPractico_LAB.s
+
+Start 00000000
+
+Symbol: Start
+   Definitions
+      At line 9 in file ExaPractico_LAB.s
+   Uses
+      At line 7 in file ExaPractico_LAB.s
+Comment: Start used once
+Sumatoria 00000008
+
+Symbol: Sumatoria
+   Definitions
+      At line 13 in file ExaPractico_LAB.s
+   Uses
+      At line 25 in file ExaPractico_LAB.s
+Comment: Sumatoria used once
+text. 00000000
+
+Symbol: text.
+   Definitions
+      At line 6 in file ExaPractico_LAB.s
+   Uses
+      None
+Comment: text. unused
+4 symbols
+342 symbols in table
