@@ -1,0 +1,114 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;POTENCIA n de cualquier número
+    2 00000000         
+    3 00000000                 THUMB
+    4 00000000                 AREA             CLASE1, ALIGN=4
+    5 00000000 00 00 00 
+              00       mem     SPACE            4
+    6 00000004                 AREA             |text.|, CODE, READONLY, ALIGN=
+2
+    7 00000000                 EXPORT           Start
+    8 00000000         
+    9 00000000         Start
+   10 00000000         ;NÚMERO A ELEVAR:
+   11 00000000 EEB0 0A08       VLDR.F32         S0, =3
+   12 00000004         ;EXPONENTE n DE LA POTENCIA:
+   13 00000004 EEF1 0A04       VLDR.F32         S1, =5
+   14 00000008         
+   15 00000008 EEB7 1A00       VMOV.F32         S2, #1      ;S2 = 1 (S2 = RESUL
+                                                            TADO DE LA POTENCIA
+                                                            )
+   16 0000000C         
+   17 0000000C         Potencia
+   18 0000000C EEF5 0A40       VCMP.F32         S1, #0      ;Compara S1 con 0
+   19 00000010 EEF1 FA10       VMRS             APSR_nzcv, FPSCR
+   20 00000014 D00B            BEQ              Fin
+   21 00000016         
+   22 00000016 EEF7 1A00       VMOV.F32         S3, #1      ;S3 = 1
+   23 0000001A EE21 1A00       VMUL.F32         S2, S2, S0  ;S2 = S2*S0
+   24 0000001E EE70 0AE1       VSUB.F32         S1, S1, S3  ;S1 = S1 - 1 = n--
+   25 00000022 EEF5 0A40       VCMP.F32         S1, #0      ;Compara S1 con 0
+   26 00000026 EEF1 FA10       VMRS             APSR_nzcv, FPSCR
+   27 0000002A D000            BEQ              Fin
+   28 0000002C E7EE            B                Potencia
+   29 0000002E         
+   30 0000002E E7FE    Fin     B                Fin
+   31 00000030         
+   32 00000030                 ALIGN
+   33 00000030                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\objects\e5_potencia.d -o.\objects\e5_potencia.o -I.\RTE\_Targ
+et_1 -IC:\Users\Edesalher\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\In
+clude\TM4C123 -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__EVAL SETA 1" --pred
+efine="__UVISION_VERSION SETA 528" --predefine="TM4C123GH6PM SETA 1" --list=.\l
+istings\e5_potencia.lst E5_Potencia.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+CLASE1 00000000
+
+Symbol: CLASE1
+   Definitions
+      At line 4 in file E5_Potencia.s
+   Uses
+      None
+Comment: CLASE1 unused
+mem 00000000
+
+Symbol: mem
+   Definitions
+      At line 5 in file E5_Potencia.s
+   Uses
+      None
+Comment: mem unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Fin 0000002E
+
+Symbol: Fin
+   Definitions
+      At line 30 in file E5_Potencia.s
+   Uses
+      At line 20 in file E5_Potencia.s
+      At line 27 in file E5_Potencia.s
+      At line 30 in file E5_Potencia.s
+
+Potencia 0000000C
+
+Symbol: Potencia
+   Definitions
+      At line 17 in file E5_Potencia.s
+   Uses
+      At line 28 in file E5_Potencia.s
+Comment: Potencia used once
+Start 00000000
+
+Symbol: Start
+   Definitions
+      At line 9 in file E5_Potencia.s
+   Uses
+      At line 7 in file E5_Potencia.s
+Comment: Start used once
+text. 00000000
+
+Symbol: text.
+   Definitions
+      At line 6 in file E5_Potencia.s
+   Uses
+      None
+Comment: text. unused
+4 symbols
+340 symbols in table
