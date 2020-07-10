@@ -1,0 +1,155 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;PROGRAMA QUE PERMITE CALCULAR EL COSTO DE UNA LLAMADA
+    2 00000000         
+    3 00000000                 THUMB
+    4 00000000                 AREA             CLASE1, ALIGN=4
+    5 00000000 00 00 00 
+              00       mem     SPACE            4
+    6 00000004                 AREA             |text.|, CODE, READONLY, ALIGN=
+2
+    7 00000000                 EXPORT           Start
+    8 00000000         
+    9 00000000         Start
+   10 00000000         ;DURACIÓN DE LLAMADA EN MINUTOS (min):
+   11 00000000 EEB0 0A00       VLDR.F32         S0, =2
+   12 00000004         ;MINUTOS DE REFERENCIA (min):
+   13 00000004 EEF0 0A08       VMOV.F32         S1, #3
+   14 00000008 E7FF            B                Verificar_Minutos
+   15 0000000A         
+   16 0000000A         Verificar_Minutos
+   17 0000000A EE30 1AC0       VSUB.F32         S2, S1, S0  ;S2 = 3 - Minutos
+   18 0000000E EEB5 1A40       VCMP.F32         S2, #0      ;Se verifica si S2 
+                                                            es igual a 0 
+   19 00000012 EEF1 FA10       VMRS             APSR_nzcv, FPSCR
+   20 00000016 D00B            BEQ              CostoPorMinuto_0_5 ;S2 = 0 por 
+                                                            tanto, duración = 3
+                                                             min.
+   21 00000018 EE61 1A01       VMUL.F32         S3, S2, S2  ;S3 = S2*S2
+   22 0000001C EEF1 1AE1       VSQRT.F32        S3, S3      ;Raíz cuadrada de S
+                                                            3
+   23 00000020 EE71 1AC1       VSUB.F32         S3, S2      ;S3 = S3 - S2
+   24 00000024 EEF5 1A40       VCMP.F32         S3, #0      ;Se verifica si S3 
+                                                            es igual a 0 
+   25 00000028 EEF1 FA10       VMRS             APSR_nzcv, FPSCR
+   26 0000002C D000            BEQ              CostoPorMinuto_0_5 ;S3 = 0 por 
+                                                            tanto, duración < 3
+                                                             min.
+   27 0000002E E004            B                CostoPorMinuto_0_6 ;S3 =! 0 por
+                                                             tanto, duración > 
+                                                            3 min.
+   28 00000030         
+   29 00000030         CostoPorMinuto_0_5
+   30 00000030 EEB6 1A00       VLDR.F32         S2, =0.5    ;S2 = 0.5
+   31 00000034 EE60 1A01       VMUL.F32         S3, S0, S2  ;S3 = COSTO POR LA 
+                                                            LLAMADA >= a 3 min.
+                                                            
+   32 00000038 E003            B                Fin
+   33 0000003A         
+   34 0000003A         CostoPorMinuto_0_6
+   35 0000003A ED9F 1A02       VLDR.F32         S2, =0.6    ;S2 = 0.6
+   36 0000003E EE60 1A01       VMUL.F32         S3, S0, S2  ;S3 = COSTO POR LA 
+                                                            LLAMADA > a 3 min.
+   37 00000042         
+   38 00000042 E7FE    Fin     B                Fin
+   39 00000044         
+   40 00000044                 ALIGN
+   41 00000044                 END
+              3F19999A 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\objects\e5_examen2_p9.d -o.\objects\e5_examen2_p9.o -I.\RTE\_
+Target_1 -IC:\Users\Edesalher\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Devic
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+e\Include\TM4C123 -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__EVAL SETA 1" --
+predefine="__UVISION_VERSION SETA 528" --predefine="TM4C123GH6PM SETA 1" --list
+=.\listings\e5_examen2_p9.lst E5_Examen2_P9.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+CLASE1 00000000
+
+Symbol: CLASE1
+   Definitions
+      At line 4 in file E5_Examen2_P9.s
+   Uses
+      None
+Comment: CLASE1 unused
+mem 00000000
+
+Symbol: mem
+   Definitions
+      At line 5 in file E5_Examen2_P9.s
+   Uses
+      None
+Comment: mem unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+CostoPorMinuto_0_5 00000030
+
+Symbol: CostoPorMinuto_0_5
+   Definitions
+      At line 29 in file E5_Examen2_P9.s
+   Uses
+      At line 20 in file E5_Examen2_P9.s
+      At line 26 in file E5_Examen2_P9.s
+
+CostoPorMinuto_0_6 0000003A
+
+Symbol: CostoPorMinuto_0_6
+   Definitions
+      At line 34 in file E5_Examen2_P9.s
+   Uses
+      At line 27 in file E5_Examen2_P9.s
+Comment: CostoPorMinuto_0_6 used once
+Fin 00000042
+
+Symbol: Fin
+   Definitions
+      At line 38 in file E5_Examen2_P9.s
+   Uses
+      At line 32 in file E5_Examen2_P9.s
+      At line 38 in file E5_Examen2_P9.s
+
+Start 00000000
+
+Symbol: Start
+   Definitions
+      At line 9 in file E5_Examen2_P9.s
+   Uses
+      At line 7 in file E5_Examen2_P9.s
+Comment: Start used once
+Verificar_Minutos 0000000A
+
+Symbol: Verificar_Minutos
+   Definitions
+      At line 16 in file E5_Examen2_P9.s
+   Uses
+      At line 14 in file E5_Examen2_P9.s
+Comment: Verificar_Minutos used once
+text. 00000000
+
+Symbol: text.
+   Definitions
+      At line 6 in file E5_Examen2_P9.s
+   Uses
+      None
+Comment: text. unused
+6 symbols
+344 symbols in table
